@@ -9,12 +9,12 @@ type HomeProps = {
   password: string;
 }
 
-export default function Home() {
-  const signInFormShema = yup.object().shape({
-    email: yup.string().required('E-mail obrigatório').email('E-mail inválido'),
-    password: yup.string().required('Infome uma senha')
-  })
+const signInFormShema = yup.object().shape({
+  email: yup.string().required('E-mail obrigatório').email('E-mail inválido'),
+  password: yup.string().required('Infome uma senha')
+})
 
+export default function Home() {
   const { register, handleSubmit, formState } = useForm({
     resolver: yupResolver(signInFormShema)
   })
