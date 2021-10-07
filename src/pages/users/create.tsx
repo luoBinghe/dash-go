@@ -16,7 +16,7 @@ type CreateUserProps = {
 }
 
 const createUserSchema = yup.object().shape({
-  name: yup.string().required('Digite um nome').email(),
+  name: yup.string().required('Digite um nome'),
   email: yup.string().required('E-mail obrigatório').email('E-mail inválido'),
   password: yup.string().required('Infome uma senha').min(8, 'Minimo 8 caracteres'),
   password_confirmation: yup.string().oneOf([
@@ -28,7 +28,6 @@ export default function CreateUser(){
   const { register, handleSubmit, formState } = useForm({
     resolver: yupResolver(createUserSchema)
   })
-
   const { errors } = formState
 
   const handleCreateUser: SubmitHandler<CreateUserProps> = (values) => {
@@ -54,7 +53,7 @@ export default function CreateUser(){
 
               <SimpleGrid minChildWidth="240px" spacing={["6","8"]} w="100%">
                 <InputForm name="password" type="password" label="Senha" error={errors.password} {...register('password')} />
-                <InputForm name="password_confirmation" label="password" type="Confirmação da senha" error={errors.password_confirmation} {...register('password_confirmation')} />
+                <InputForm name="password_confirmation" label="Repita a senha" type="password" error={errors.password_confirmation} {...register('password_confirmation')} />
               </SimpleGrid>
             </VStack>
             <Flex mt="8" justify="flex-end">
@@ -64,7 +63,7 @@ export default function CreateUser(){
                     Cancelar
                   </Button>
                 </Link>
-                <Button colorScheme="pink" isLoading={formState.isSubmitting}>
+                <Button type="submit" colorScheme="pink" isLoading={formState.isSubmitting}>
                   Salvar
                 </Button>
               </HStack>
