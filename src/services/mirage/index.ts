@@ -51,6 +51,8 @@ export function makeServer(){
         )
       })
 
+      this.get('/users/:id')
+
       this.namespace = ''
       this.passthrough()
     }
