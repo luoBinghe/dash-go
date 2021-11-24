@@ -1,9 +1,15 @@
 import { useQuery } from "react-query";
 import { api } from "../api";
 
-export function useUsers(){
-  return useQuery('users', async () => {
-    const { data } = await api.get('users')
+export function useUsers(page: number){
+  return useQuery(['users', page], async () => {
+    const { data, headers } = await api.get('users', {
+      params: {
+        page
+      }
+    })
+
+    const totalCount = Number(headers['x-total-count'])
 
     const users = data.users.map(user => {
       return {
@@ -18,6 +24,9 @@ export function useUsers(){
       }
     })
 
-    return users;
+    return {
+      users,
+      totalCount  
+    }
   })
 }
